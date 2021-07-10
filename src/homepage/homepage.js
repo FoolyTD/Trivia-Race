@@ -27,7 +27,7 @@ export default function HomePage({questions, handleSelect}) {
       <ul className="button-group">
        {listCategories()} 
       </ul>
-      {questions && <Link to="/questions">Start Quiz</Link>}
+      {questions && <Link to="/questions"><button>Start Quiz</button></Link>}
     </div>
     )
 }
