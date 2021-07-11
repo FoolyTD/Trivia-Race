@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Questions from "./questions/questions";
 import HomePage from "./homepage/homepage";
+import StartScreen from "./start/start";
 
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
   return (
     <Router>
       <Route exact={true} path="/">
+        <StartScreen />
+      </Route>
+      <Route exact={true} path="/home">
         <HomePage questions={questions} handleSelect={handleSelect} />
       </Route>
     <Route exact={true} path="/questions">

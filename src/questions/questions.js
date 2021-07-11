@@ -8,6 +8,8 @@ export default function Questions({ questions, restartQuiz }) {
   const [answers, setAnswers] = useState([]);
   const [score, setScore] = useState(0);
 
+// count = 0
+
   useEffect(() => {
     setAnswers([
       ...questions[count].incorrect_answers,
@@ -18,9 +20,21 @@ export default function Questions({ questions, restartQuiz }) {
   useInterval(function () {
     if (timer < 15) {
       setTimer(timer+1);
+      // setCount(count+1)
+    } else {
+      if (count >= 9) {
+        const alert = window.confirm(`You scored ${score} out of 10. Go home?`);
+        if (alert) {
+          history.push("/home");
+        } else {
+          return null;
+        }
+      }
+      setTimer(0);
+      setCount((currentCount) => currentCount+1); 
     }
   }
-	, 1000);
+	, 500);
 
 
   const history = useHistory();
@@ -36,7 +50,7 @@ export default function Questions({ questions, restartQuiz }) {
       const value = window.confirm(`You scored ${score} out of 10. Play again?`);
       if (value) {
         restartQuiz();
-        history.push("/");
+        history.push("/home");
       }
     }
   };
