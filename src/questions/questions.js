@@ -8,8 +8,6 @@ export default function Questions({ questions, restartQuiz }) {
   const [answers, setAnswers] = useState([]);
   const [score, setScore] = useState(0);
 
-// count = 0
-
   useEffect(() => {
     setAnswers([
       ...questions[count].incorrect_answers,
@@ -20,11 +18,11 @@ export default function Questions({ questions, restartQuiz }) {
   useInterval(function () {
     if (timer < 15) {
       setTimer(timer+1);
-      // setCount(count+1)
     } else {
       if (count >= 9) {
         const alert = window.confirm(`You scored ${score} out of 10. Go home?`);
         if (alert) {
+          restartQuiz();
           history.push("/home");
         } else {
           return null;
