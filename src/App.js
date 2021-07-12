@@ -9,6 +9,7 @@ function App() {
 
   const [questions, setQuestions] = useState(null);
   const [reset, setReset] = useState(false);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     setQuestions(null);
@@ -17,7 +18,13 @@ function App() {
   const handleSelect = (number) => {
   fetch(`https://opentdb.com/api.php?amount=10&category=${number}&difficulty=easy`)
   .then(response => response.json())
-  .then(data => setQuestions(data.results));
+  .then(data => setQuestions(data.results))
+  .then(setActive(number))
+  .catch(console.log);
+  }
+
+  const handleDeselect = () => {
+    setActive(null);
   }
   
   const restartQuiz = () => {
@@ -30,7 +37,7 @@ function App() {
         <StartScreen />
       </Route>
       <Route exact={true} path="/home">
-        <HomePage questions={questions} handleSelect={handleSelect} />
+        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} />
       </Route>
     <Route exact={true} path="/questions">
       <Questions questions={questions} restartQuiz={restartQuiz}/>

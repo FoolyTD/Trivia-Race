@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-export default function HomePage({questions, handleSelect}) {
+export default function HomePage({questions, handleSelect, active, handleDeselect}) {
     const categories = [
         {name:"Any", number:9},
         {name:"Movies", number:11},
@@ -12,11 +12,19 @@ export default function HomePage({questions, handleSelect}) {
 
       const listCategories = () => {
         return categories.map((category) => {
-          return (
-            <li key={category.number}>
-              <button className="category-buttons" onClick={()=> handleSelect(category.number)}>{category.name}</button>
-            </li>
-          );
+          if (active === category.number) {
+            return (
+              <li key={category.number}>
+             {questions && <Link to="/questions"><button value={category.number} className={`active`} onClick={()=> handleDeselect(category.number)}>Start</button>
+            </Link>} </li>
+            )
+          } else {
+            return (
+              <li key={category.number}>
+                <button value={category.number} className={`category-buttons`} onClick={()=> handleSelect(category.number)}>{category.name}</button>
+              </li>
+            );
+          }
         });
       };
 
@@ -27,7 +35,6 @@ export default function HomePage({questions, handleSelect}) {
       <ul className="button-group">
        {listCategories()} 
       </ul>
-      {questions && <Link to="/questions">Start Quiz</Link>}
     </div>
     )
 }

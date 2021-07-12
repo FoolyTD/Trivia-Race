@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useInterval from "../utils/useInterval";
+import ValidateString from "./validateStrings";
 
 export default function Questions({ questions, restartQuiz }) {
   const [count, setCount] = useState(0);
@@ -64,7 +65,7 @@ export default function Questions({ questions, restartQuiz }) {
             value={answer}
             onClick={handleClick}
           >
-            {answer}
+            {ValidateString(answer)}
           </button>
         </li>
       );
@@ -74,11 +75,9 @@ export default function Questions({ questions, restartQuiz }) {
   return (
     <div className="App">
       <h1>{questions[count].category}</h1>
-      {/* <h4>{count + 1}</h4> */}
-      <p>{questions && questions[count].question}</p>
+      <p>{questions && ValidateString(questions[count].question)}</p>
       <div>
         <ul className="button-group">{answers && listAnswers()}</ul>
-        {/* <h3>Score: {score}</h3> */}
         <progress id="file" value={timer} max="15">Timer
         </progress>
       </div>

@@ -22,10 +22,6 @@ img {
   padding: inherit;
 }
 
-.category-buttons {
-  padding: 10px;
-  width: 45%;
-}
 
 .App-header {
   background-color: #282c34;
@@ -54,8 +50,24 @@ Link {
 
 button {
   background-color: #3d348b;
-  border-radius: 10px;
+  padding: 10px;
+  width: 45%;
+  border-radius: 25px;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
   color: #fff;
+}
+
+.disabled {
+  background-color: grey;
+  /* background-color: Transparent; */
+}
+
+.active {
+  background-color: green;
 }
 
 button:hover {

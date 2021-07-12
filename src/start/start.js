@@ -6,7 +6,8 @@ export default function StartScreen() {
         <div>
             <h1>Trivia Race</h1>
             <h3>Are you ready?</h3>
-            <Link to="/home"><p>Yes</p></Link>
+            <button className="category-buttons disabled">Log In</button>
+            <Link to="/home"><p>Continue as Guest</p></Link>
         </div>
     )
 }
