@@ -4,15 +4,18 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Questions from "./questions/questions";
 import HomePage from "./homepage/homepage";
 import StartScreen from "./start/start";
+import Leaderboard from "./leaderboard/leaderboard";
 
 function App() {
 
   const [questions, setQuestions] = useState(null);
   const [reset, setReset] = useState(false);
   const [active, setActive] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     setQuestions(null);
+    setScore(0);
   },[reset])
 
   const handleSelect = (number) => {
@@ -31,6 +34,10 @@ function App() {
     setReset(!reset);
   }
 
+  const correctAnswer = () => {
+    setScore((currentScore)=> currentScore + 1);
+  }
+
   return (
     <Router>
       <Route exact={true} path="/">
@@ -40,10 +47,12 @@ function App() {
         <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} />
       </Route>
     <Route exact={true} path="/questions">
-      <Questions questions={questions} restartQuiz={restartQuiz}/>
+      <Questions questions={questions} restartQuiz={restartQuiz} correctAnswer={correctAnswer}/>
+    </Route>
+    <Route exact={true} path="/leaderboard">
+      <Leaderboard score={score} />
     </Route>
     </Router>
-    
   );
 }
 

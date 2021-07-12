@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom";
 import useInterval from "../utils/useInterval";
 import ValidateString from "./validateStrings";
 
-export default function Questions({ questions, restartQuiz }) {
+export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [count, setCount] = useState(0);
   const [timer, setTimer] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [score, setScore] = useState(0);
+  // const [score, setScore] = useState(0);
 
   useEffect(() => {
     setAnswers([
@@ -21,13 +21,14 @@ export default function Questions({ questions, restartQuiz }) {
       setTimer(timer+1);
     } else {
       if (count >= 9) {
-        const alert = window.confirm(`You scored ${score} out of 10. Go home?`);
-        if (alert) {
-          restartQuiz();
-          history.push("/home");
-        } else {
-          return null;
-        }
+        history.push("/leaderboard");
+        // const alert = window.confirm(`You scored ${score} out of 10. Go home?`);
+        // if (alert) {
+        //   restartQuiz();
+        //   history.push("/home");
+        // } else {
+        //   return null;
+        // }
       }
       setTimer(0);
       setCount((currentCount) => currentCount+1); 
@@ -41,16 +42,18 @@ export default function Questions({ questions, restartQuiz }) {
   const handleClick = ({ target }) => {
     if (count < 9) {
       if (target.value === questions[count].correct_answer && timer < 15) {
-        setScore((currentScore) => currentScore + 1);
+        // setScore((currentScore) => currentScore + 1);
+        correctAnswer();
       }
       setCount((currentCount) => currentCount + 1);
       setTimer(0);
     } else {
-      const value = window.confirm(`You scored ${score} out of 10. Play again?`);
-      if (value) {
-        restartQuiz();
-        history.push("/home");
-      }
+      history.push("/leaderboard");
+      // const value = window.confirm(`You scored ${score} out of 10. Play again?`);
+      // if (value) {
+      //   restartQuiz();
+      //   history.push("/home");
+      // }
     }
   };
 
