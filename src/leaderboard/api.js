@@ -31,7 +31,7 @@ async function fetchJson(url, options, onCancel) {
  * @returns {Promise<[table]>}
  *  a promise that resolves to the array of scores and names.
  */
- async function listScores(signal) {
+export async function listScores(signal) {
     const url = `${API_BASE_URL}/leaderboards`;
     const options = {
       method: "GET",
@@ -42,6 +42,6 @@ async function fetchJson(url, options, onCancel) {
     return await fetchJson(url, options);
   }
 
-  module.exports = {
-      listScores,
-  }
+  // module.exports = {
+  //     listScores,
+  // }
