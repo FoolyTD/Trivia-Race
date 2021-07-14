@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { listScores } from "./utils/api.js";
+import { listScores } from "./api.js";
 
 export default function Leaderboard({ score }) {
   const [leaders, setLeaders] = useState(null);
