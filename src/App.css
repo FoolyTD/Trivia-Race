@@ -78,14 +78,40 @@ button:hover {
 
 h1 {
   font-size: 50px;
+  padding: 0 20px 0 20px;
 }
 
 p {
   text-decoration: none;
+  padding: 10px 10px 10px 10px;
 }
 
 tr , th , td  {
   border: 1px solid black;
   padding: 5%;
   text-align: center;
+}
+
+.leaderboard {
+  background-color: #3d348b;
+  font-size: 15px;
+  /* width: 100%; */
+  text-align: center;
+}
+
+.table-title {
+  background-color: #fff;
+}
+
+.leader {
+  background-color: green;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+.mentioned {
+  color: #fff;
 }

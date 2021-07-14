@@ -34,7 +34,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
       setCount((currentCount) => currentCount+1); 
     }
   }
-	, 500);
+	, 1000);
 
 
   const history = useHistory();
@@ -42,7 +42,6 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const handleClick = ({ target }) => {
     if (count < 9) {
       if (target.value === questions[count].correct_answer && timer < 15) {
-        // setScore((currentScore) => currentScore + 1);
         correctAnswer();
       }
       setCount((currentCount) => currentCount + 1);

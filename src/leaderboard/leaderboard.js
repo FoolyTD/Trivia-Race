@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { listScores } from "./utils/api";
 
 export default function Leaderboard({ score }) {
-  const [leaders, setLeaders] = useState([]);
+  const [leaders, setLeaders] = useState(null);
 
   //When the page mounts, load the leaders
   useEffect(() => {
@@ -11,9 +12,9 @@ export default function Leaderboard({ score }) {
 
   const listLeaders = () => {
     leaders.sort((a, b) => b.score - a.score);
-    return leaders.map((leader) => {
+    return leaders.map((leader, index) => {
       return (
-        <tr>
+        <tr className={index === 0 ? "leader" : "mentioned"}>
           <td>{leader.player_name}</td>
           <td>{leader.score}</td>
         </tr>
@@ -24,17 +25,24 @@ export default function Leaderboard({ score }) {
   return (
     <div>
       <h1>Leaderboard</h1>
-      <p>You scored {score} out of 10!</p>
+      {leaders && score > leaders[3].score ? (
+        <p>
+          You scored {score} out of 10! Want to add your name to the
+          leaderboard? <button>Yes</button>
+        </p>
+      ) : (
+        <p>You scored {score} out of 10. Better luck next time!</p>
+      )}
       <div className="leaderboard">
-    <table>
-        <tr>
-          <th>Player Name</th>
-          <th>Score</th>
-        </tr>
-        {leaders && listLeaders()}
-      </table>
+        <table>
+          <tr className="table-title">
+            <th>Player Name</th>
+            <th>Score</th>
+          </tr>
+          {leaders && listLeaders()}
+        </table>
       </div>
-      
+      <Link to="/home">Go Home</Link>
     </div>
   );
 }
