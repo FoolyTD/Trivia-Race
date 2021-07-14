@@ -44,7 +44,7 @@ function App() {
         <StartScreen />
       </Route>
       <Route exact={true} path="/home">
-        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} />
+        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} restartQuiz={restartQuiz} />
       </Route>
     <Route exact={true} path="/questions">
       <Questions questions={questions} restartQuiz={restartQuiz} correctAnswer={correctAnswer}/>

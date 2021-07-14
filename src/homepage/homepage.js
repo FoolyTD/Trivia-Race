@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
-export default function HomePage({questions, handleSelect, active, handleDeselect}) {
+export default function HomePage({questions, handleSelect, active, handleDeselect, restartQuiz}) {
     const categories = [
         {name:"Any", number:9},
         {name:"Movies", number:11},
@@ -9,6 +10,10 @@ export default function HomePage({questions, handleSelect, active, handleDeselec
         {name:"Sports", number:21},
         {name:"Mythology", number:20},
       ];
+
+      useEffect(()=> {
+        restartQuiz();
+      }, []);
 
       const listCategories = () => {
         return categories.map((category) => {

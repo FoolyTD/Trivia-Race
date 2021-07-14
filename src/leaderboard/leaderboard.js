@@ -28,7 +28,7 @@ export default function Leaderboard({ score }) {
       {leaders && score > leaders[3].score ? (
         <p>
           You scored {score} out of 10! Want to add your name to the
-          leaderboard? <button>Yes</button>
+          leaderboard? <button className="disabled">Yes</button>
         </p>
       ) : (
         <p>You scored {score} out of 10. Better luck next time!</p>
