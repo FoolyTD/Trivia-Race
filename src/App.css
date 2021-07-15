@@ -22,7 +22,12 @@ img {
   padding: inherit;
 }
 
-
+.special-buttons {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px 0 20px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -114,4 +119,8 @@ table {
 
 .mentioned {
   color: #fff;
+}
+
+.danger {
+  background-color: red;
 }
