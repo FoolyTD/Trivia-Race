@@ -1,10 +1,12 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Questions from "./questions/questions";
 import HomePage from "./homepage/homepage";
 import StartScreen from "./start/start";
 import Leaderboard from "./leaderboard/leaderboard";
+import NotFound from "./errors/notFound";
+import $ from 'jquery';
 
 function App() {
 
@@ -45,6 +47,7 @@ function App() {
 
   return (
     <Router>
+      <Switch>
       <Route exact={true} path="/">
         <StartScreen />
       </Route>
@@ -57,6 +60,11 @@ function App() {
     <Route exact={true} path="/leaderboard">
       <Leaderboard score={score} />
     </Route>
+    
+      <Route exact={true} path="/:everytingelse">
+      <NotFound />
+    </Route>
+    </Switch>
     </Router>
   );
 }

@@ -25,7 +25,7 @@ export default function Leaderboard({ score }) {
   return (
     <div>
       <h1>Leaderboard</h1>
-      {leaders && score >= leaders[4].score ? (
+      {leaders && score >= leaders[5].score ? (
         <p>
           You scored {score} out of 10! Want to add your name to the
           leaderboard? <button className="disabled">Yes</button>

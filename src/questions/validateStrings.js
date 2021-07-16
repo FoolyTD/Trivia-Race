@@ -3,8 +3,17 @@ export default function ValidateString(string) {
     if (string.match(/&quot;/)) {
         result = string.replaceAll(/&quot;/g, '"');
     }
-    if (string.match(/&quote;/)) {
-        result = string.replaceAll(/&quote;/g, '"');
+    if (string.includes("&quot")) {
+        string.replaceAll(/&quot;/g, '"')
+    }
+    if (string.match(/&ntilde;/)) {
+        result = string.replaceAll(/&ntilde;/g, 'ñ');
+    }
+    if (string.match(/&uuml;/)) {
+        result = string.replaceAll(/&uuml;/g, 'ü');
+    }
+    if (string.match(/&aacute;/)) {
+        result = string.replaceAll(/&aacute;/g, 'á ');
     }
     if (string.match(/&#039/)) {
         result = string.replaceAll(/&#039;/g, "'");

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useInterval from "../utils/useInterval";
 import ValidateString from "./validateStrings";
+// import $ from 'jquery';
 
 export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [count, setCount] = useState(0);
@@ -13,14 +14,14 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [freezeTimer, setFreezeTimer] = useState(5);
   const [freezeActive, setFreezeActive] = useState(null);
   const [freezeCount, setFreezeCount] = useState(1);
-
+  
+  
   useEffect(() => {
     setAnswers([
       ...questions[count].incorrect_answers,
       questions[count].correct_answer,
     ]);
   }, [questions, count]);
-
   useInterval(function () {
     if (timer < 15) {
       if(freezeActive) {
@@ -35,11 +36,10 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
       setCount((currentCount) => currentCount+1); 
     }
   }
-	, 1000);
-
-
+	, 1000);  
+  
   const history = useHistory();
-
+  
   const handleClick = ({ target }) => {
     setFreezeActive(false);
     setFiftyFifty(false);
@@ -124,6 +124,13 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     setFreezeCount((currentCount) => currentCount - 1)
   }
 
+  const handleQuit = () => {
+    const confirmation = window.confirm("Are you sure you want to quit?");
+    if (confirmation) {
+      history.push("/home");
+    }
+  }
+
   const listAnswers = () => {
     answers.sort((a, b) => a.localeCompare(b));
     return answers.map((answer, index) => {
@@ -146,6 +153,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     <div className="App">
       <h1 className="quiz-header">{questions[count].category}</h1>
       <p>{questions && ValidateString(questions[count].question)}</p>
+      {/* <p>{questions && $(`<div>${questions[count].question}<div>`)}</p> */}
       <div>
         <ul className="button-group">{answers && fiftyFifty !== true ? listAnswers() : handleFiftyFifty()}</ul>
         <progress id="file" value={timer} max="15">Timer
@@ -156,7 +164,11 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
 {fiftyFiftyCount > 0 ? <button className="active special-button" onClick={displayFiftyFifty}>50/50</button> : null}
 {freezeCount > 0 ? <button className="active special-button" onClick={handleFreeze}><span className="emoji">❆</span></button> : null}
       </div>
+      <div className="special-buttons">
       <button className="danger" onClick={handleReport}>Report Question</button>
+      <button className="warning" onClick={handleQuit}>Quit</button>
+      </div>
+      
     </div>
   );
 }

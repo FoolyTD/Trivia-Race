@@ -65,6 +65,10 @@ button:hover {
   cursor: pointer;
 }
 
+.warning {
+  background-color: orange;
+}
+
 span.emoji {
   font-size: 35px;
 }
