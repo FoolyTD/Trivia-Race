@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
-export default function HomePage({questions, handleSelect, active, handleDeselect, restartQuiz}) {
+export default function HomePage({questions, handleSelect, active, handleDeselect, restartQuiz, loading}) {
     const categories = [
         {name:"Any", number:9},
         {name:"Movies", number:11},
@@ -17,6 +17,12 @@ export default function HomePage({questions, handleSelect, active, handleDeselec
 
       const listCategories = () => {
         return categories.map((category) => {
+          if (loading === category.number) {
+            return (
+              <li key={category.number}>
+             <button value={category.number} className={`loading`} onClick={()=> handleDeselect(category.number)}>Loading . . .</button></li>
+            )
+          }
           if (active === category.number) {
             return (
               <li key={category.number}>

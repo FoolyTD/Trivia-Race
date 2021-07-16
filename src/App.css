@@ -18,6 +18,8 @@ img {
   color: #000000;
 }
 
+/* Button Styling */
+
 .button-group {
   padding: inherit;
 }
@@ -25,34 +27,16 @@ img {
 .special-buttons {
   display:flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 10px 0 20px;
 }
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.special-button {
+  background-color: yellow;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  text-align: center;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-ul li {
-  list-style: none;
-  padding: 5px;
-}
-
-Link {
-  text-decoration: none;
-  color: white;
-}
-
 button {
   background-color: #3d348b;
   padding: 10px;
@@ -80,6 +64,39 @@ button:hover {
   /* background-color: rgb(200, 69, 200); */
   cursor: pointer;
 }
+
+span.emoji {
+  font-size: 35px;
+}
+
+.quiz-header {
+  font-size: 35px;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+ul li {
+  list-style: none;
+  padding: 5px;
+}
+
+Link {
+  text-decoration: none;
+  color: white;
+}
+
 
 h1 {
   font-size: 50px;

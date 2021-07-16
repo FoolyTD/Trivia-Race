@@ -10,6 +10,9 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [skip, setSkip] = useState(1);
   const [fiftyFifty, setFiftyFifty] = useState(null);
   const [fiftyFiftyCount, setFiftyFiftyCount] = useState(1);
+  const [freezeTimer, setFreezeTimer] = useState(5);
+  const [freezeActive, setFreezeActive] = useState(null);
+  const [freezeCount, setFreezeCount] = useState(1);
 
   useEffect(() => {
     setAnswers([
@@ -20,6 +23,9 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
 
   useInterval(function () {
     if (timer < 15) {
+      if(freezeActive) {
+        return null;
+      }
       setTimer(timer+1);
     } else {
       if (count >= 9) {
@@ -35,6 +41,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const history = useHistory();
 
   const handleClick = ({ target }) => {
+    setFreezeActive(false);
     setFiftyFifty(false);
     if (count < 9) {
       if (target.value === questions[count].correct_answer && timer < 15) {
@@ -51,18 +58,31 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     setSkip((currentSkip)=>currentSkip-1);
     correctAnswer();
     setTimer(0);
-    setCount((currentCount)=>currentCount+1)
+    if (count < 9) {
+    setCount((currentCount)=>currentCount+1);
+    } else {
+      history.push('/leaderboard');
+    }
   }
 
   const handleReport = () => {
-    window.alert("We have flagged this question. Thank you for your feedback! Enjoy a free 50/50 on us.");
-    setFiftyFiftyCount((currentCount) => currentCount+1);
+    if (fiftyFiftyCount < freezeCount) {
+      window.alert("We have flagged this question. Thank you for your feedback! Enjoy a free 50/50 on us.");
+      setFiftyFiftyCount((currentCount) => currentCount+1);
+    } else {
+      window.alert("We have flagged this question. Thank you for your feedback! Enjoy a free freeze on us.");
+      setFreezeCount((currentCount)=> currentCount + 1);
+    }
   }
 
   const displayFiftyFifty = () => {
+    if (fiftyFifty) {
+      return null;
+    }
     setFiftyFiftyCount((currentCount)=>currentCount-1);
     setFiftyFifty(!fiftyFifty);
   }
+  
   const handleFiftyFifty = () => {
     answers.sort((a, b) => a.localeCompare(b));
     let numberOfAnswers = 0;
@@ -99,6 +119,11 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     })
   }
 
+  const handleFreeze = () => {
+    setFreezeActive(true);
+    setFreezeCount((currentCount) => currentCount - 1)
+  }
+
   const listAnswers = () => {
     answers.sort((a, b) => a.localeCompare(b));
     return answers.map((answer, index) => {
@@ -119,7 +144,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
 
   return (
     <div className="App">
-      <h1>{questions[count].category}</h1>
+      <h1 className="quiz-header">{questions[count].category}</h1>
       <p>{questions && ValidateString(questions[count].question)}</p>
       <div>
         <ul className="button-group">{answers && fiftyFifty !== true ? listAnswers() : handleFiftyFifty()}</ul>
@@ -127,8 +152,9 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
         </progress>
       </div>
       <div className="special-buttons">
-{skip > 0 ? <button className="active" onClick={handleSkip}>Free One</button> : null}
-{fiftyFiftyCount > 0 ? <button className="active" onClick={displayFiftyFifty}>50/50</button> : null}
+{skip > 0 ? <button className="active special-button" onClick={handleSkip}>Free One</button> : null}
+{fiftyFiftyCount > 0 ? <button className="active special-button" onClick={displayFiftyFifty}>50/50</button> : null}
+{freezeCount > 0 ? <button className="active special-button" onClick={handleFreeze}><span className="emoji">❆</span></button> : null}
       </div>
       <button className="danger" onClick={handleReport}>Report Question</button>
     </div>

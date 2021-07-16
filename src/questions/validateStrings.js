@@ -3,6 +3,9 @@ export default function ValidateString(string) {
     if (string.match(/&quot;/)) {
         result = string.replaceAll(/&quot;/g, '"');
     }
+    if (string.match(/&quote;/)) {
+        result = string.replaceAll(/&quote;/g, '"');
+    }
     if (string.match(/&#039/)) {
         result = string.replaceAll(/&#039;/g, "'");
     }

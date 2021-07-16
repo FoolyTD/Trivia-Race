@@ -11,6 +11,7 @@ function App() {
   const [questions, setQuestions] = useState(null);
   const [reset, setReset] = useState(false);
   const [active, setActive] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0);
 
   useEffect(() => {
@@ -18,12 +19,16 @@ function App() {
     setScore(0);
   },[reset])
 
-  const handleSelect = (number) => {
-  fetch(`https://opentdb.com/api.php?amount=10&category=${number}&difficulty=easy`)
+  async function handleSelect(number) {
+  await fetch(`https://opentdb.com/api.php?amount=10&category=${number}&difficulty=easy`)
   .then(response => response.json())
   .then(data => setQuestions(data.results))
-  .then(setActive(number))
+  .then(setLoading(number))
   .catch(console.log);
+
+  setLoading(null);
+
+  setActive(number);
   }
 
   const handleDeselect = () => {
@@ -44,7 +49,7 @@ function App() {
         <StartScreen />
       </Route>
       <Route exact={true} path="/home">
-        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} restartQuiz={restartQuiz} />
+        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} loading={loading} restartQuiz={restartQuiz} />
       </Route>
     <Route exact={true} path="/questions">
       <Questions questions={questions} restartQuiz={restartQuiz} correctAnswer={correctAnswer}/>
