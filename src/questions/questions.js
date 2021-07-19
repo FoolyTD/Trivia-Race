@@ -11,7 +11,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [skip, setSkip] = useState(1);
   const [fiftyFifty, setFiftyFifty] = useState(null);
   const [fiftyFiftyCount, setFiftyFiftyCount] = useState(1);
-  const [freezeTimer, setFreezeTimer] = useState(5);
+  // const [freezeTimer, setFreezeTimer] = useState(5);
   const [freezeActive, setFreezeActive] = useState(null);
   const [freezeCount, setFreezeCount] = useState(1);
   

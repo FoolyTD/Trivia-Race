@@ -6,6 +6,7 @@ import HomePage from "./homepage/homepage";
 import StartScreen from "./start/start";
 import Leaderboard from "./leaderboard/leaderboard";
 import NotFound from "./errors/notFound";
+import NewUser from "./users/newUser";
 import $ from 'jquery';
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     setQuestions(null);
@@ -36,6 +39,10 @@ function App() {
   const handleDeselect = () => {
     setActive(null);
   }
+
+  const logIn = () => {
+    setLoggedIn(true);
+  }
   
   const restartQuiz = () => {
     setReset(!reset);
@@ -43,6 +50,10 @@ function App() {
 
   const correctAnswer = () => {
     setScore((currentScore)=> currentScore + 1);
+  }
+
+  const loadUser = (data) => {
+    setUser(data[data.length - 1]);
   }
 
   return (
@@ -58,10 +69,12 @@ function App() {
       <Questions questions={questions} restartQuiz={restartQuiz} correctAnswer={correctAnswer}/>
     </Route>
     <Route exact={true} path="/leaderboard">
-      <Leaderboard score={score} />
+      <Leaderboard score={score} user={user} category={questions && questions[0].category} loggedIn={loggedIn}/>
     </Route>
-    
-      <Route exact={true} path="/:everytingelse">
+    <Route exact={true} path="/users/new">
+      <NewUser logIn={logIn} loadUser={loadUser} loggedIn={loggedIn} />
+    </Route>
+      <Route path="/">
       <NotFound />
     </Route>
     </Switch>

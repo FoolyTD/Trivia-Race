@@ -31,8 +31,8 @@ async function fetchJson(url, options, onCancel) {
  * @returns {Promise<[table]>}
  *  a promise that resolves to the array of scores and names.
  */
-export async function listScores(signal) {
-    const url = `${API_BASE_URL}/leaderboards`;
+export async function listUsers(signal) {
+    const url = `${API_BASE_URL}/users`;
     const options = {
       method: "GET",
       headers,
@@ -42,13 +42,13 @@ export async function listScores(signal) {
     return await fetchJson(url, options);
   }
 
-  export async function postScore(entry, signal) {
-    const url = `${API_BASE_URL}/leaderboards`;
+  export async function postUser(user, signal) {
+    const url = `${API_BASE_URL}/users`;
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({data: entry}),
+      body: JSON.stringify({data: user}),
       signal,
     };
-    return await fetchJson(url, options, entry);
+    return await fetchJson(url, options, user);
   }
