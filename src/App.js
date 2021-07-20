@@ -7,7 +7,8 @@ import StartScreen from "./start/start";
 import Leaderboard from "./leaderboard/leaderboard";
 import NotFound from "./errors/notFound";
 import NewUser from "./users/newUser";
-import $ from 'jquery';
+// import $ from 'jquery';
+import LogIn from "./users/logIn";
 
 function App() {
 
@@ -56,6 +57,10 @@ function App() {
     setUser(data[data.length - 1]);
   }
 
+  const logInUser = (user) => {
+    setUser(user);
+  }
+
   return (
     <Router>
       <Switch>
@@ -63,7 +68,7 @@ function App() {
         <StartScreen />
       </Route>
       <Route exact={true} path="/home">
-        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} loading={loading} restartQuiz={restartQuiz} />
+        <HomePage questions={questions} handleSelect={handleSelect} handleDeselect={handleDeselect} active={active} loading={loading} restartQuiz={restartQuiz} user={user} />
       </Route>
     <Route exact={true} path="/questions">
       <Questions questions={questions} restartQuiz={restartQuiz} correctAnswer={correctAnswer}/>
@@ -73,6 +78,9 @@ function App() {
     </Route>
     <Route exact={true} path="/users/new">
       <NewUser logIn={logIn} loadUser={loadUser} loggedIn={loggedIn} />
+    </Route>
+    <Route exact={true} path="/users/login">
+      <LogIn logIn={logIn} logInUser={logInUser} loggedIn={loggedIn} />
     </Route>
       <Route path="/">
       <NotFound />

@@ -12,11 +12,14 @@ export default function Leaderboard({ score, user, category, loggedIn }) {
   }, []);
 
   const listLeaders = () => {
+    let maximum = 0;
     const filtered = leaders.filter((entry)=> entry.category === category);
     filtered.sort((a, b) => b.score - a.score);
-    // leaders.sort((a, b) => b.score - a.score);
-    // return leaders.map((leader, index) => {
     return filtered.map((leader, index) => {
+      maximum++;
+      if (maximum >= 6) {
+        return null;
+      }
       return (
         <tr className={index === 0 ? "leader" : "mentioned"}>
           <td>{leader.user_name}</td>
@@ -28,7 +31,6 @@ export default function Leaderboard({ score, user, category, loggedIn }) {
 
 
   const handleSubmit = async (event) => {
-    // user_id, score, categoery required
     event.preventDefault();
     await postScore({user_id:user.user_id, score, category});
     history.push("/home");
@@ -61,13 +63,12 @@ export default function Leaderboard({ score, user, category, loggedIn }) {
       {leaders && (score >= scoreToBeat() && loggedIn) ? (
         <p>
           You scored {score} out of 10! Want to add your score to the
-          leaderboard? <button onClick={handleSubmit} className="disabled">Yes</button>
+          leaderboard? <button onClick={handleSubmit} className="">Yes</button>
         </p>
       ) : (
         <p>You scored {score} out of 10. You needed a score of {scoreToBeat()} or higher. Better luck next time!</p>
       )}
       
-      <hr></hr>
       <div className="leaderboard">
         <table>
           <tr className="table-title">
@@ -77,7 +78,7 @@ export default function Leaderboard({ score, user, category, loggedIn }) {
           {leaders && listLeaders()}
         </table>
       </div>
-      <Link to="/home">Go Home</Link>
+      <button className="warning" onClick={()=>history.push("/home")}>Go Home</button>
     </div>
   );
 }
