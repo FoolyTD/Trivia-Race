@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 export default function HomePage({questions, handleSelect, active, handleDeselect, restartQuiz, loading, user}) {
-    const categories = [
+  
+  const history = useHistory();
+  const categories = [
         {name:"Any", number:9},
         {name:"Movies", number:11},
         {name:"Music", number:12},
@@ -46,6 +48,7 @@ export default function HomePage({questions, handleSelect, active, handleDeselec
       <ul className="button-group">
        {listCategories()} 
       </ul>
+      <button className="danger" onClick={()=>history.push("/")}>QUIT GAME</button>
     </div>
     )
 }
