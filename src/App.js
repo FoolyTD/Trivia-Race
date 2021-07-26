@@ -1,4 +1,8 @@
+// We need to import the styling from the css, if we have any styling to do on the way
+//  that the app looks, make those changes in this file src/App.css
 import "./App.css";
+
+
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Questions from "./questions/questions";
@@ -7,7 +11,6 @@ import StartScreen from "./start/start";
 import Leaderboard from "./leaderboard/leaderboard";
 import NotFound from "./errors/notFound";
 import NewUser from "./users/newUser";
-// import $ from 'jquery';
 import LogIn from "./users/logIn";
 
 function App() {

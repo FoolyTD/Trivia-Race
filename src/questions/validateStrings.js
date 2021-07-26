@@ -1,7 +1,7 @@
 export default function ValidateString(string) {
     let result = "";
     if (string.match(/&quot;/)) {
-        result = string.replaceAll(/&quot;/g, '"');
+        result = string.replaceAll(/&quot;/g, "\"");
     }
     if (string.includes("&quot")) {
         string.replaceAll(/&quot;/g, '"')
@@ -37,7 +37,7 @@ export default function ValidateString(string) {
         result = string.replaceAll(/&Eacute;/g, "É");
     }
     if (string.match(/&ldquo;/)) {
-        result = string.replaceAll(/&ldquo;/g, '"');
+        result = string.replaceAll(/&ldquo;/g, "\"");
     }
     if (string.match(/&rdquo;/)) {
         result = string.replaceAll(/&rdquo;/g, '"');
