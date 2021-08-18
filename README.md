@@ -1,4 +1,54 @@
+# Welcome to Trivia Race
+Trivia Race is a fast-paced trivia game that puts your knowledge to the test. Select from 7 of the most popular trivia categories and compete against other users for your place on the leaderboards. Oh, and I forgot to mention, you're racing against the clock!
+
+To PLAY NOW, click [HERE](https://trivia-race.vercel.app/). 
+
+# Gameplay
+![Trivia Race Homepage](./src/images/trivis-race-homepage.jpg)
+
+1. ## Getting Started
+The homescreen has three options: login, create account, or how to play. If you don't have an account, you will have to create one using the sign-up form. How to play will walk you through the rules of the game.
+
+2. ## How to Play
+- Once logged in, click one of the buttons to select your category. Wait for the loading to complete, and the button will glow bright green and say "Start"! Click the button again to start your round.
+
+- You will be given a random set of 10 questions from your selected category. The questions can be either multiple choice with 4 options, or true/false. For each question you will have 15 seconds to read and answer. Click the button with the correct answer to move to the next question. After you answer, the correct response will glow green and your answer--if incorrect--will glow red. If you take 15 seconds, you will automatically be moved to the next question.
+
+3. ### **SPECIAL POWERS**
+No one knows everything, so Trivia Race is here to help you along the way. At the start of each round, you will be given 3 special powers. Use these powers wisely because they can only be used once per round.
+
+- **Free One**: Click the Free One button to be gifted a free answer! Use wisely because you only get one per round.
+- **50/50**: Click 50/50 button to take away 2 incorrect answers from a multiple choice question.
+- **❄️**: Click ❄️ button to freeze the timer, giving you unlimited time on a single question. 
+
+4. ## Scoring
+At the end of your round, you will be given your score and be offered the ability to take a look at the leaderboards. If you scored high enough in your category, you can put your name on the leaderboards for everyone to see!
+
+I hope you enjoy my application and Good Luck!
+
+To PLAY NOW, click [HERE](https://trivia-race.vercel.app/). 
+
+# Technologies used
+This repository holds the frontend code for a trivia application built using React, JavaScript, HTML, CSS, Bootstrap, and JSON API. The design for the application was built with Figma and resources from Unsplash, Coolors, and Subtle Patterns library. 
+
+# Development
+Fork and clone this repository to run it locally on your machine. Then, run `npm install` to install the dependencies. From there, navigate to the src folder. This is where all of my components are located. `src/index.js` is the first file you should look at. It is the origin of the code for the rest of the application. As you can see, it only returns one component `<App />`. Navigate to `src/App.js` and that's where the code I wrote begins. I did my best to comment what I was thinking at each link in the code. Also, I tried to name everything in a logical way, but I will outline what folder hold what code.
+
+- errors: the NotFound page which will be displayed on any routes that aren't defined 
+- homepage: the code for "trivia-race/home" route
+- images: images used in the project
+- leaderboard: the code for the "trivia-race/leaderboard" route
+- questions: the code for the "trivia-race/questions" route where the questions are displayed
+- start: the code for "trivia-race/" the start screen for the application
+- users: the code for "trivia-race/user/:form" the login and sign-up forms
+- utils: helper functions for that app
+
 # Getting Started with Create React App
+This project was created using:
+```
+npx create-react-app project-name
+```
+After the frame for your application is built, navigate to the src folder and delete all of the files. Then, create a file called index.js.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

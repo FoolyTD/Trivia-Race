@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { listUsers } from "./api";
 
-export default function LogIn({logIn, logInUser, loggedIn}) {
+export default function LogIn({logIn, logInUser}) {
   const initialFormState = {
     user_name: "",
     password: "",
@@ -69,7 +69,7 @@ export default function LogIn({logIn, logInUser, loggedIn}) {
             <label className="">Password:</label>
             <input
               className=""
-              type="text"
+              type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}

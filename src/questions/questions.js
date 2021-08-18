@@ -89,7 +89,6 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     setTimer(0);
      if (count < 9) {
       setCount((currentCount) => currentCount + 1);
-      console.log(count);
       setTimer(0);
     } else {
       history.push("/leaderboard");

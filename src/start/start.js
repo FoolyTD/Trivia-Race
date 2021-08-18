@@ -10,7 +10,6 @@ export default function StartScreen() {
                 <Link to="/users/new"><li key={"Create"}><button className="active">Create Account</button></li></Link>
                 <Link to="/users/login"><li key={"Log In"}><button className="">Log In</button></li></Link>
             </ul>
-            {/* <Link to="/home"><p>Continue as Guest</p></Link> */}
         </div>
     )
 }
