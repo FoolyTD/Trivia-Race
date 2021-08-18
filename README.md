@@ -4,7 +4,7 @@ Trivia Race is a fast-paced trivia game that puts your knowledge to the test. Se
 To PLAY NOW, click [HERE](https://trivia-race.vercel.app/). 
 
 # Gameplay
-![Trivia Race Homepage](./src/images/trivis-race-homepage.jpg)
+![Trivia Race Homepage](https://github.com/FoolyTD/Trivia-Race/blob/main/src/images/trivia-race-homepage.jpg)
 
 1. ## Getting Started
 The homescreen has three options: login, create account, or how to play. If you don't have an account, you will have to create one using the sign-up form. How to play will walk you through the rules of the game.
