@@ -1,7 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+/* Contains the  */
+@import "./css/start.css";
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Poppins";
+}
+
+/* Remove the scroll white space */
+html {
+  overflow: hidden;
+  /* width: 100%; */
+  /* height: 100%; */
 }
 
 body {
@@ -25,7 +36,7 @@ img {
 }
 
 .special-buttons {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   padding: 10px 0 20px;
@@ -42,11 +53,11 @@ button {
   padding: 10px;
   width: 45%;
   border-radius: 25px;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
   color: #fff;
 }
 
@@ -93,11 +104,9 @@ ul li {
   padding: 5px;
 }
 
-Link {
-  text-decoration: none;
-  color: white;
+a {
+  width: 100%;
 }
-
 
 h1 {
   font-size: 30px;
@@ -110,7 +119,9 @@ p {
   padding: 10px 10px 10px 10px;
 }
 
-tr , th , td  {
+tr,
+th,
+td {
   border: 1px solid black;
   padding: 5%;
   text-align: center;
@@ -163,3 +174,5 @@ table {
 .submit-button {
   margin-bottom: 10px;
 }
+
+/* Styling for start menu */

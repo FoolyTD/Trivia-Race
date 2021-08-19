@@ -6,7 +6,7 @@ export default function NotFound() {
     return (
         <div>
           <h1>Page Not Found</h1>
-        <button onClick={()=>history.push("/home")}>Go Home</button>  
+        <button onClick={()=>history.push("/")}>Go Home</button>  
         </div>
     )
 }
