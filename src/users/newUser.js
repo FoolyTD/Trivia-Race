@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { postUser, listUsers } from "./api";
 
 export default function NewEntry({ logIn, loadUser, loggedIn }) {
-  
   const initialFormState = {
     user_name: "",
     password: "",
@@ -16,19 +15,19 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
 
   const validateSubmission = () => {
     setErrors(null);
-    const error = [];
+    const error = {};
     if (formData.user_name.length < 3) {
-      error.push("Name must be longer than 2 characters");
+      error.name = "Name must be longer than 2 characters";
     }
     if (formData.password.length < 3) {
-      error.push("Password must be longer than 2 characters");
+      error.password = "Password must be longer than 2 characters";
     }
     if (!formData.email.includes("@")) {
-      error.push("Email must have @");
+      error.email = "Email must have @";
     }
-    if (error.length > 0) {
+    if (error.password || error.name || error.email) {
       setErrors(error);
-      return null;
+      return false;
     }
     return true;
   };
@@ -51,69 +50,101 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
     });
   };
 
-  const displayErrors = () => {
-    return errors.map((error, index) => {
-      return <li key={`error-${index}`}>{error}</li>;
-    });
-  };
-
   if (!loggedIn) {
     return (
-      <div>
-        <h1>New User</h1>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="form-control">
-            <div className="form-item">
-              <label>Name:</label>
-                <input
-                  className=""
-                  type="text"
-                  name="user_name"
-                  value={formData.user_name}
-                  onChange={handleChange}
-                  required
-                />
-                {/* <i className="fas fa-check-circle">✔️</i> */}
-                {/* <i>✔️</i> */}
-                {/* <i className="fas fa-exclamation-circle"></i> */}
-                {/* <i>❌</i> */}
+      <section className="login-container">
+        <header>
+          <div className="header-container">
+            <div className="t-container">
+              <h1 className="header-t">C</h1>
             </div>
-            <div className="form-item">
-              <label className="">Password:</label>
-                <input
-                  className=""
-                  type="text"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-                {/* <i>✔️</i>
-                <i>❌</i>               */}
+            <div className="r-container">
+              <h1 className="header-r">r</h1>
             </div>
-            <div className="form-item">
-              <label className="">Email:</label>
-                <input
-                  className=""
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              {/* <i>✔️</i>
-              <i>❌</i>    */}
+            <div className="i-container">
+              <h1 className="header-i">e</h1>
+            </div>
+            <div className="v-container">
+              <h1 className="header-v">a</h1>
+            </div>
+            <div className="i-2-container">
+              <h1 className="header-i-2">t</h1>
+            </div>
+            <div className="a-container">
+              <h1 className="header-a">e</h1>
             </div>
           </div>
-              <button className="submit-button" type="submit" name="submit">
-                Submit
-              </button>
-              <button className="warning" onClick={() => history.push("/")}>
-                Cancel
-              </button>
+        </header>
+        <form className="" onSubmit={handleSubmit}>
+          <div className="form-container">
+            <div className="form-item">
+              <label
+                className={errors ? (errors.name ? "alert-text" : "") : ""}
+              >
+                {errors ? (errors.name ? errors.name : "Name") : "Name"}
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                name="user_name"
+                value={formData.user_name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-item">
+              <label
+                className={errors ? (errors.password ? "alert-text" : "") : ""}
+              >
+                {errors
+                  ? errors.password
+                    ? errors.password
+                    : "Password"
+                  : "Password"}
+              </label>
+              <input
+                className="form-input"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-item">
+              <label
+                className={errors ? (errors.email ? "alert-text" : "") : ""}
+              >
+                {errors ? (errors.email ? errors.email : "Email") : "Email"}
+              </label>
+              <input
+                className="form-input"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-button-container">
+            <button
+              className="start-button create-button form-button"
+              type="submit"
+              name="submit"
+            >
+              Submit
+            </button>
+            <button
+              className="start-button login-button form-button"
+              onClick={() => history.push("/")}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
-        {errors && <ul>{displayErrors()}</ul>}
-      </div>
+        {/* {errors && <ul>{displayErrors()}</ul>} */}
+      </section>
     );
   } else {
     return (

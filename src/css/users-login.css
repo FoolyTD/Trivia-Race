@@ -1,0 +1,50 @@
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  background: url(../images/purty_wood.png);
+}
+
+.g-container {
+  background-color: #35eb08;
+  font-size: var(--card-font-size);
+  height: var(--card-height);
+  width: var(--card-width);
+  z-index: 2;
+  filter: var(--drop-shadow);
+}
+.header-g {
+  color: #fff;
+  left: -8.04%;
+  font-family: var(--card-font);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--card-font-size);
+  text-shadow: var(--text-shadow);
+}
+
+@media only screen and (max-width: 450px) {
+  .g-container {
+    background-color: #35eb08;
+    position: absolute;
+    font-size: var(--card-font-size);
+    height: var(--card-height);
+    width: var(--card-width);
+    left: 38vw;
+    top: 32px;
+    z-index: 2;
+    filter: var(--drop-shadow);
+  }
+  .header-g {
+    color: #fff;
+    position: absolute;
+    left: -8.04%;
+    font-family: var(--card-font);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--card-font-size);
+    text-shadow: var(--text-shadow);
+  }
+  .login-form {
+    margin-top: 132px;
+  }
+}

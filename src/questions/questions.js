@@ -24,9 +24,9 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const [decided, setDecided] = useState(false);
   // this value stores the button that the user selected
   const [selected, setSelected] = useState(null);
- // history useHistory will be used to navigate pages from the questions component 
+  // history useHistory will be used to navigate pages from the questions component
   const history = useHistory();
-  
+
   // when the /questions page mounts, the answers for the question will be set and re-render after each answer selected
   useEffect(() => {
     // set the answer state to hold the three incorrect answers and the correct answer (the API return different key/value pair)
@@ -43,41 +43,39 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
      an answer was decided, or the timer is at 15 */
   useInterval(function () {
     if (timer < 15) {
-      if(freezeActive || decided) {
+      if (freezeActive || decided) {
         return null;
       }
-      setTimer(timer+1);
+      setTimer(timer + 1);
     } else {
       if (count >= 9) {
         history.push("/leaderboard");
       }
       setTimer(0);
-      setCount((currentCount) => currentCount+1); 
+      setCount((currentCount) => currentCount + 1);
     }
-  }
-	, 1000);  
-  
-/* this function is run when an answer is selected: 
+  }, 1000);
+
+  /* this function is run when an answer is selected: 
      -if decided is true, deactivate button use
      -set the selected answer to the clicked button
      -deactivate 50/50 and freeze
      -set decided to true
      -score answer
      -move to the next question unless we are at the end of our quiz */
-  const handleSelect = ({target}) => {
+  const handleSelect = ({ target }) => {
     if (decided) {
-    return null;
+      return null;
     }
-    
+
     setSelected(target.name);
     setFreezeActive(false);
     setFiftyFifty(false);
     setDecided(true);
-    
+
     if (target.value === questions[count].correct_answer && timer < 15) {
       correctAnswer();
     }
-   
   };
 
   // This function will run once any button is clicked after the user has
@@ -87,13 +85,13 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const handleNext = () => {
     setDecided(false);
     setTimer(0);
-     if (count < 9) {
+    if (count < 9) {
       setCount((currentCount) => currentCount + 1);
       setTimer(0);
     } else {
       history.push("/leaderboard");
     }
-  }
+  };
 
   // this function will execute once the free one button is pressed,
   // it resets all powers, restarts timer, removes one free skip
@@ -102,27 +100,31 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     if (decided) return null;
     setFreezeActive(false);
     setFiftyFifty(false);
-    setSkip((currentSkip)=>currentSkip-1);
+    setSkip((currentSkip) => currentSkip - 1);
     correctAnswer();
     setTimer(0);
     if (count < 9) {
-    setCount((currentCount)=>currentCount+1);
+      setCount((currentCount) => currentCount + 1);
     } else {
-      history.push('/leaderboard');
+      history.push("/leaderboard");
     }
-  }
+  };
 
   // this function wil run when the report button is clicked
   const handleReport = () => {
     if (decided) return null;
     if (fiftyFiftyCount < freezeCount) {
-      window.alert("We are working to remove this issue. Thank you for helping us improve our app! Enjoy a free 50/50 on us.");
-      setFiftyFiftyCount((currentCount) => currentCount+1);
+      window.alert(
+        "We are working to remove this issue. Thank you for helping us improve our app! Enjoy a free 50/50 on us."
+      );
+      setFiftyFiftyCount((currentCount) => currentCount + 1);
     } else {
-      window.alert("We have flagged this question. Thank you for your feedback! Enjoy a free freeze on us.");
-      setFreezeCount((currentCount)=> currentCount + 1);
+      window.alert(
+        "We have flagged this question. Thank you for your feedback! Enjoy a free freeze on us."
+      );
+      setFreezeCount((currentCount) => currentCount + 1);
     }
-  }
+  };
 
   // this function will run when the 50/50 button is clicked, it will display
   //    set FiftyFifty to active and take away one use of 50/50
@@ -130,10 +132,10 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     if (fiftyFifty || decided) {
       return null;
     }
-    setFiftyFiftyCount((currentCount)=>currentCount-1);
+    setFiftyFiftyCount((currentCount) => currentCount - 1);
     setFiftyFifty(true);
-  }
-  
+  };
+
   /* this function will display only two answer choices when the 50/50 button is pressed
    first I sort the answers in alphabetical order
    then i initialize a variable called number of answers and set it to zero
@@ -157,7 +159,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
             </button>
           </li>
         );
-      } else if(numberOfAnswers === 0) {
+      } else if (numberOfAnswers === 0) {
         numberOfAnswers++;
         return (
           <li key={`answer-${index}`}>
@@ -173,16 +175,16 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
         );
       }
       return null;
-    })
-  }
+    });
+  };
 
   // handler for the freeze special power, setting freeze active to true will stop the timer
   //    and then i take away one freeze ability
   const handleFreeze = () => {
     if (decided) return null;
     setFreezeActive(true);
-    setFreezeCount((currentCount) => currentCount - 1)
-  }
+    setFreezeCount((currentCount) => currentCount - 1);
+  };
 
   // handler for the Quit button, we run a window confirm into a push home using the
   //    useHistory hook
@@ -191,9 +193,9 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
     if (confirmation) {
       history.push("/home");
     }
-  }
+  };
 
-  // this function will display the answer buttons, I list the answers in alphabetical order to 
+  // this function will display the answer buttons, I list the answers in alphabetical order to
   //    switch position of the correct answer, before sort it is always the last choice
   const listAnswers = () => {
     answers.sort((a, b) => a.localeCompare(b));
@@ -201,10 +203,20 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
       return (
         <li key={`answer-${index}`}>
           <button
-          /* once an answer is decided, correct answer will be green, incorrect will be red and the rest will be disabled
+            /* once an answer is decided, correct answer will be green, incorrect will be red and the rest will be disabled
              if no answer is decided, the button will be uniform
           Because selected is passed in as a string, we must convert it to a number */
-            className={decided ? (index === Number(selected) ? (answer === questions[count].correct_answer ? "active" : "danger") : (answer === questions[count].correct_answer ? "active" : "disabled")) : "category-buttons"}
+            className={
+              decided
+                ? index === Number(selected)
+                  ? answer === questions[count].correct_answer
+                    ? "active"
+                    : "danger"
+                  : answer === questions[count].correct_answer
+                  ? "active"
+                  : "disabled"
+                : "category-buttons"
+            }
             type="button"
             name={index}
             value={answer}
@@ -220,22 +232,59 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
 
   return (
     // I put the next handler on the entire page so clicking anyywhere will go to next screen
-    <div className="App" onClick={decided ? handleNext : ()=>{}}>
-      <h1 className="quiz-header">{questions[count].category}</h1>
+    <div className="App" onClick={decided ? handleNext : () => {}}>
+      <h1 className="quiz-header">{questions && questions[count].category}</h1>
       <p>{questions && ValidateString(questions[count].question)}</p>
       <div>
-        <ul className="button-group">{answers && fiftyFifty !== true ? listAnswers() : displayFiftyFifty()}</ul>
-        <progress id="file" value={timer} max="15">Timer
+        <ul className="button-group">
+          {answers && fiftyFifty !== true ? listAnswers() : displayFiftyFifty()}
+        </ul>
+        <progress id="file" value={timer} max="15">
+          Timer
         </progress>
       </div>
       <div className="special-buttons">
-{skip > 0 ? <button className={decided ? " special-button disabled" : "active special-button"} onClick={handleSkip}>Free One</button> : null}
-{fiftyFiftyCount > 0 ? <button className={decided ? " special-button disabled" : "active special-button"} onClick={handleFiftyFifty}>50/50</button> : null}
-{freezeCount > 0 ? <button className={decided ? " special-button disabled" : "active special-button"} onClick={handleFreeze}><span className="emoji">❆</span></button> : null}
+        {skip > 0 ? (
+          <button
+            className={
+              decided ? " special-button disabled" : "active special-button"
+            }
+            onClick={handleSkip}
+          >
+            Free One
+          </button>
+        ) : null}
+        {fiftyFiftyCount > 0 ? (
+          <button
+            className={
+              decided ? " special-button disabled" : "active special-button"
+            }
+            onClick={handleFiftyFifty}
+          >
+            50/50
+          </button>
+        ) : null}
+        {freezeCount > 0 ? (
+          <button
+            className={
+              decided ? " special-button disabled" : "active special-button"
+            }
+            onClick={handleFreeze}
+          >
+            <span className="emoji">❆</span>
+          </button>
+        ) : null}
       </div>
       <div className="special-buttons">
-      <button className={decided ? "disabled" : "danger"} onClick={handleReport}>Report Question</button>
-      <button className={"warning"} onClick={handleQuit}>Quit</button>
+        <button
+          className={decided ? "disabled" : "danger"}
+          onClick={handleReport}
+        >
+          Report Question
+        </button>
+        <button className={"warning"} onClick={handleQuit}>
+          Quit
+        </button>
       </div>
     </div>
   );

@@ -1,28 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-/* Contains the  */
+
+/* CSS for each component*/
 @import "./css/start.css";
+@import "./css/notFound.css";
+@import "./css/users-login.css";
+@import "./css/home.css";
+
+/* Remove default settings from browser */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins";
+  font-family: "Pangolin";
+  font-size: 35px;
 }
 
 /* Remove the scroll white space */
 html {
   overflow: hidden;
-  /* width: 100%; */
-  /* height: 100%; */
 }
 
 body {
   text-align: center;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-  display: cover;
+.game-container {
+  background: url(./images/purty_wood.png);
+  height: 100vh;
+  width: 100vw;
 }
 
 .App {
@@ -50,14 +55,12 @@ img {
 }
 button {
   background-color: #3d348b;
-  padding: 10px;
-  width: 45%;
-  border-radius: 25px;
-  background-repeat: no-repeat;
+  padding: 3px;
+  width: 90vw;
+  max-width: 500px;
+  border-radius: 11px;
   border: none;
   cursor: pointer;
-  overflow: hidden;
-  outline: none;
   color: #fff;
 }
 
@@ -84,16 +87,7 @@ span.emoji {
 .quiz-header {
   font-size: 35px;
 }
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+
 
 .App-link {
   color: #61dafb;
@@ -153,26 +147,76 @@ table {
 .danger {
   background-color: red;
 }
+.danger:hover {
+  background-color: rgb(165, 26, 26);
+}
 
 /* form styling */
-.form {
+
+.form-container {
+  width: 90vw;
+  max-width: 500px;
+  background-color: #fff;
+  margin: auto;
+  margin-top: 45px;
+  border-radius: 11px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  border: 2px solid #000;
 }
 
 .form-item {
-  flex: 1;
-  width: 75%;
-  padding-bottom: 20px;
-}
-.form-control {
-  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 15vh;
+  width: 90%;
+}
+
+.form-input {
+  padding: 5px;
+  border-radius: 11px;
+  background-color: #f0f0f0;
+  border: 2px solid;
+  color: #000;
+}
+.form-label {
+  color: #7b7979;
+  display: flex;
+  justify-content: flex-start;
+}
+.form-error-message {
+  font-size: 15px;
+  color: red;
+}
+
+.form-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  padding-top: 20px;
+  margin: auto;
+}
+.form-button {
+  margin: 10px;
 }
 .submit-button {
   margin-bottom: 10px;
 }
+.alert-text {
+  font-size: 35px;
+  color:rgb(255, 4, 4)
+}
 
-/* Styling for start menu */
+/* Adjust form when on login and create screen */
+@media only screen and (max-width: 450px) {
+  .form-button-container {
+    flex-direction: column;
+  }
+  .form-container {
+    max-height: 400px;
+    margin-top: 136px;
+  }
+}

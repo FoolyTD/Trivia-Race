@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { listUsers } from "./api";
 
-export default function LogIn({logIn, logInUser}) {
+export default function LogIn({ logIn, logInUser }) {
   const initialFormState = {
     user_name: "",
     password: "",
@@ -14,9 +14,8 @@ export default function LogIn({logIn, logInUser}) {
   const history = useHistory();
 
   useEffect(() => {
-    listUsers()
-    .then(setUsers)
-  }, [])
+    listUsers().then(setUsers);
+  }, []);
 
   const handleChange = ({ target }) => {
     setFormData({
@@ -28,36 +27,50 @@ export default function LogIn({logIn, logInUser}) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors(null);
-    const matchedUser = users.find((user)=>user.email === formData.email);
+    const matchedUser = users.find((user) => user.email === formData.email);
 
     if (matchedUser === undefined) {
-        setErrors(["email does not exist in our records"]);
-    }
-    if (matchedUser.password === formData.password) {
-        logIn()
-        logInUser(matchedUser)
-        history.push("/home")
+      setErrors({ email: "email does not exist in our records" });
     } else {
-        setErrors(["Incorrect password"]);
+      if (matchedUser.password === formData.password) {
+        logIn();
+        logInUser(matchedUser);
+        history.push("/home");
+      } else {
+        setErrors({ password: "Incorrect password" });
+      }
     }
   };
 
-  const displayErrors = () => {
-      return errors.map((error,index)=> {
-          return <p>{error}</p>
-      })
-  }
-
   return (
-    <div>
-      <h1>Log In</h1>
-      {errors && displayErrors()}
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-control">
+    <section className="login-container">
+      <header>
+        <div className="header-container">
+          <div className="t-container">
+            <h1 className="header-t">L</h1>
+          </div>
+          <div className="r-container">
+            <h1 className="header-r">o</h1>
+          </div>
+          <div className="g-container">
+            <h1 className="header-g">g</h1>
+          </div>
+          <div className="i-2-container">
+            <h1 className="header-i-2">i</h1>
+          </div>
+          <div className="a-container">
+            <h1 className="header-a">n</h1>
+          </div>
+        </div>
+      </header>
+      <form className="" onSubmit={handleSubmit}>
+        <div className="form-container login-form">
           <div className="form-item">
-            <label>Email:</label>
+            <label className={errors ? (errors.email ? "alert-text" : "") : ""}>
+              {errors ? (errors.email ? errors.email : "Email") : "Email"}
+            </label>
             <input
-              className=""
+              className="form-input"
               type="text"
               name="email"
               value={formData.email}
@@ -66,9 +79,11 @@ export default function LogIn({logIn, logInUser}) {
             />
           </div>
           <div className="form-item">
-            <label className="">Password:</label>
+          <label className={errors ? (errors.password ? "alert-text" : "") : ""}>
+              {errors ? (errors.password ? errors.password : "Password") : "Password"}
+            </label>
             <input
-              className=""
+              className="form-input"
               type="password"
               name="password"
               value={formData.password}
@@ -77,13 +92,22 @@ export default function LogIn({logIn, logInUser}) {
             />
           </div>
         </div>
-        <button className="submit-button" type="submit" name="submit">
-          Submit
-        </button>
-        <button className="warning" onClick={() => history.push("/")}>
-          Cancel
-        </button>
+        <div className="form-button-container">
+          <button
+            className="start-button create-button form-button"
+            type="submit"
+            name="submit"
+          >
+            Submit
+          </button>
+          <button
+            className="start-button login-button form-button"
+            onClick={() => history.push("/")}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
-    </div>
+    </section>
   );
 }

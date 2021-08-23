@@ -4,9 +4,9 @@ export default function NotFound() {
     const history = useHistory();
 
     return (
-        <div>
-          <h1>Page Not Found</h1>
-        <button onClick={()=>history.push("/")}>Go Home</button>  
+        <div className="game-container">
+          <h1 className="not-found-text">Page Not Found</h1>
+        <button className="start-button how-to-button" onClick={()=>history.push("/")}>Go Home</button>  
         </div>
     )
 }
