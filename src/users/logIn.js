@@ -30,7 +30,7 @@ export default function LogIn({ logIn, logInUser }) {
     const matchedUser = users.find((user) => user.email === formData.email);
 
     if (matchedUser === undefined) {
-      setErrors({ email: "email does not exist in our records" });
+      setErrors({ email: "email not found" });
     } else {
       if (matchedUser.password === formData.password) {
         logIn();
