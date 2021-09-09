@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { postUser, listUsers } from "./api";
+import { postUser, loginUser } from "./api";
 
-export default function NewEntry({ logIn, loadUser, loggedIn }) {
+export default function NewEntry({ loggedIn }) {
   const initialFormState = {
     user_name: "",
     password: "",
@@ -17,16 +17,13 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
     setErrors(null);
     const error = {};
     if (formData.user_name.length < 3) {
-      error.name = "Name must be longer than 2 characters";
+      error.name = "name too short";
     }
     if (formData.password.length < 3) {
-      error.password = "Password must be longer than 2 characters";
+      error.password = "password too short";
     }
-    if (!formData.email.includes("@")) {
-      error.email = "Email must have @";
-    }
-    if (error.password || error.name || error.email) {
-      setErrors(error);
+    if (error.password || error.name) {
+      setErrors({ ...error });
       return false;
     }
     return true;
@@ -36,10 +33,15 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
     event.preventDefault();
 
     if (validateSubmission()) {
-      await postUser(formData);
-      await listUsers().then(loadUser);
-      logIn();
-      history.push("/home");
+      await postUser(formData)
+        .then(() => {
+          loginUser({
+            user_name: formData.user_name,
+            password: formData.password,
+          });
+        })
+        .then(() => history.push("/users/login"))
+        .catch(setErrors);
     }
   };
 
@@ -79,9 +81,21 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
           <div className="form-container">
             <div className="form-item">
               <label
-                className={errors ? (errors.name ? "alert-text" : "") : ""}
+                className={
+                  errors
+                    ? errors.name || errors.message
+                      ? "alert-text"
+                      : ""
+                    : ""
+                }
               >
-                {errors ? (errors.name ? errors.name : "Name") : "Name"}
+                {errors
+                  ? errors.message
+                    ? "name already taken"
+                    : errors.name
+                    ? errors.name
+                    : "Name"
+                  : "Name"}
               </label>
               <input
                 className="form-input"
@@ -143,7 +157,6 @@ export default function NewEntry({ logIn, loadUser, loggedIn }) {
             </button>
           </div>
         </form>
-        {/* {errors && <ul>{displayErrors()}</ul>} */}
       </section>
     );
   } else {

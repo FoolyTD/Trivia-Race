@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { listUsers } from "./api";
+import { loginUser } from "./api";
 
-export default function LogIn({ logIn, logInUser }) {
+export default function LogIn({ logInUser }) {
   const initialFormState = {
     user_name: "",
     password: "",
@@ -10,11 +10,9 @@ export default function LogIn({ logIn, logInUser }) {
 
   const [formData, setFormData] = useState({ ...initialFormState });
   const [errors, setErrors] = useState(null);
-  const [users, setUsers] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
-    listUsers().then(setUsers);
   }, []);
 
   const handleChange = ({ target }) => {
@@ -27,19 +25,10 @@ export default function LogIn({ logIn, logInUser }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors(null);
-    const matchedUser = users.find((user) => user.email === formData.email);
 
-    if (matchedUser === undefined) {
-      setErrors({ email: "email not found" });
-    } else {
-      if (matchedUser.password === formData.password) {
-        logIn();
-        logInUser(matchedUser);
-        history.push("/home");
-      } else {
-        setErrors({ password: "Incorrect password" });
-      }
-    }
+    loginUser(formData).then(data=>logInUser(data))
+    .then(history.push("/home"))
+    .catch(setErrors)
   };
 
   return (
@@ -66,21 +55,21 @@ export default function LogIn({ logIn, logInUser }) {
       <form className="" onSubmit={handleSubmit}>
         <div className="form-container login-form">
           <div className="form-item">
-            <label className={errors ? (errors.email ? "alert-text" : "") : ""}>
-              {errors ? (errors.email ? errors.email : "Email") : "Email"}
+            <label className={errors ? (!errors.message.includes("password") ? "alert-text" : "") : ""}>
+              {errors ? (!errors.message.includes("password") ? errors.message : "User Name") : "User Name"}
             </label>
             <input
               className="form-input"
               type="text"
-              name="email"
-              value={formData.email}
+              name="user_name"
+              value={formData.user_name}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-item">
-          <label className={errors ? (errors.password ? "alert-text" : "") : ""}>
-              {errors ? (errors.password ? errors.password : "Password") : "Password"}
+          <label className={errors ? (errors.message.includes("password") ? "alert-text" : "") : ""}>
+              {errors ? (errors.message.includes("password") ? errors.message : "Password") : "Password"}
             </label>
             <input
               className="form-input"

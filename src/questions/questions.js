@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import useInterval from "../utils/useInterval";
 import ValidateString from "./validateStrings";
 
-export default function Questions({ questions, restartQuiz, correctAnswer }) {
+export default function Questions({ questions, correctAnswer, logOut }) {
   //measures what question in the 10 question API response will be displayed on the screen
   const [count, setCount] = useState(0);
   // measures amount of time each question will have
@@ -191,6 +191,7 @@ export default function Questions({ questions, restartQuiz, correctAnswer }) {
   const handleQuit = () => {
     const confirmation = window.confirm("Are you sure you want to quit?");
     if (confirmation) {
+      logOut();
       history.push("/home");
     }
   };

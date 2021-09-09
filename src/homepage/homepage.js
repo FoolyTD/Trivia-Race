@@ -75,7 +75,7 @@ export default function HomePage({
   return (
     <section className="home-container">
       <header>
-        <h1 className="home-header">Select Your Category, {user.user_name}</h1>
+        <h1 className="home-header">Select Your Category, {user && user.user_name}</h1>
       </header>
       <ul className="button-group">
         {listCategories()}

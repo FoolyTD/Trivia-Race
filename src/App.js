@@ -14,6 +14,7 @@ import NotFound from "./errors/notFound";
 import NewUser from "./users/newUser";
 import LogIn from "./users/logIn";
 import HowToPlay from "./instructions/howToPlay";
+import { loginUser } from "./users/api";
 
 function App() {
   // An array that will hold that response from the API,
@@ -36,17 +37,7 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // const results = data.json();
-        console.log(data.results)
         setQuestions(data.results)
-        // localStorage.setItem(questions, JSON.stringify(data.results));
-        // (() => {
-          // const localStorageQuestions = localStorage.getItem(JSON.parse(questions));
-          // const localStorageQuestions = localStorage.getItem(questions);
-          // console.log(localStorageQuestions);
-        // })();
-        // console.log(JSON.parse(data.results));
-        // console.log(data.results);
       })
       .then(setLoading(number))
       .catch(console.log);
@@ -60,10 +51,6 @@ function App() {
     setActive(null);
   };
 
-  const logIn = () => {
-    setLoggedIn(true);
-  };
-
   const restartQuiz = () => {
     setReset(!reset);
   };
@@ -72,13 +59,14 @@ function App() {
     setScore((currentScore) => currentScore + 1);
   };
 
-  const loadUser = (data) => {
-    setUser(data[data.length - 1]);
-  };
-
   const logInUser = (user) => {
     setUser(user);
+    setLoggedIn(true);
   };
+
+  const logOut = () => {
+    setLoggedIn(false);
+  }
 
   return (
     <Router>
@@ -100,9 +88,9 @@ function App() {
         <Route exact={true} path="/questions">
           <Questions
             questions={questions}
-            // questions={window.localStorage.getItem(questions)}
             restartQuiz={restartQuiz}
             correctAnswer={correctAnswer}
+            logOut={logOut}
           />
         </Route>
         <Route exact={true} path="/leaderboard">
@@ -114,10 +102,10 @@ function App() {
           />
         </Route>
         <Route exact={true} path="/users/new">
-          <NewUser logIn={logIn} loadUser={loadUser} loggedIn={loggedIn} />
+          <NewUser logInUser={loginUser} />
         </Route>
         <Route exact={true} path="/users/login">
-          <LogIn logIn={logIn} logInUser={logInUser} loggedIn={loggedIn} />
+          <LogIn logInUser={logInUser} loggedIn={loggedIn} />
         </Route>
         <Route exact={true} path="/how-to-play">
           <HowToPlay />
